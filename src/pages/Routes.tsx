@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Layout, Tabs, Button, Modal, message, Space } from 'antd';
 import { PlusOutlined, GlobalOutlined, HomeOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { RouteList } from '../components/route/RouteList';
 import { Route } from '../types/route';
 import { useRouteStore } from '../store/routeStore';
@@ -11,6 +12,7 @@ import { isMobile } from '../utils/mobile';
 const { Content } = Layout;
 
 export const Routes: React.FC = () => {
+  const { t } = useTranslation(['common', 'routes']);
   const mobile = isMobile();
   const navigate = useNavigate();
   const { addRoute } = useRouteStore();
@@ -25,17 +27,17 @@ export const Routes: React.FC = () => {
       const parsed = parseShareLink(shareData);
       if (parsed) {
         Modal.confirm({
-          title: '导入分享的路线',
-          content: `是否要导入路线"${parsed.name}"？`,
+          title: t('routes:createRoute'),
+          content: `${t('routes:createRoute')}: "${parsed.name}"?`,
           onOk: () => {
             try {
               const newRoute = createRouteFromShare(parsed);
               addRoute(newRoute);
-              message.success('路线导入成功');
+              message.success(t('common:success'));
               // 清除URL参数
               window.history.replaceState({}, '', window.location.pathname);
             } catch (error: any) {
-              message.error(`导入失败: ${error.message}`);
+              message.error(`${t('common:error')}: ${error.message}`);
             }
           },
           onCancel: () => {
@@ -80,13 +82,13 @@ export const Routes: React.FC = () => {
                 marginBottom: mobile ? 8 : 12,
                 fontWeight: 'bold'
               }}>
-                路线管理
+                {t('routes:title')}
               </h1>
               <p style={{ 
                 fontSize: mobile ? '14px' : '16px',
                 color: '#666'
               }}>
-                管理您的路线、模板和收藏
+                {t('routes:description')}
               </p>
             </div>
             <Space>
@@ -96,7 +98,7 @@ export const Routes: React.FC = () => {
                 onClick={() => navigate('/')}
                 size={mobile ? 'middle' : 'large'}
               >
-                {!mobile && '返回首页'}
+                {!mobile && t('common:home')}
               </Button>
               <Button
                 type="primary"
@@ -104,7 +106,7 @@ export const Routes: React.FC = () => {
                 onClick={handleCreateRoute}
                 size={mobile ? 'middle' : 'large'}
               >
-                {!mobile && '创建路线'}
+                {!mobile && t('routes:createRoute')}
               </Button>
             </Space>
           </div>
@@ -119,7 +121,7 @@ export const Routes: React.FC = () => {
               label: (
                 <span>
                   <GlobalOutlined />
-                  {!mobile && ' 全部路线'}
+                  {!mobile && ` ${t('routes:allRoutes')}`}
                 </span>
               ),
               children: (

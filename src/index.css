@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Noto Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -20,6 +20,70 @@ body {
   /* 移动端优化 */
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+}
+
+/* RTL 布局支持 */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .ant-layout,
+[dir="rtl"] .ant-layout-header,
+[dir="rtl"] .ant-layout-content,
+[dir="rtl"] .ant-layout-footer {
+  direction: rtl;
+}
+
+/* RTL 下的间距调整 */
+[dir="rtl"] .ant-space-item:not(:last-child) {
+  margin-left: 8px;
+  margin-right: 0;
+}
+
+/* RTL 输入框和选择器 */
+[dir="rtl"] .ant-input,
+[dir="rtl"] .ant-select-selector,
+[dir="rtl"] .ant-picker {
+  text-align: right;
+  direction: rtl;
+}
+
+/* RTL 图标和按钮方向调整 */
+[dir="rtl"] .ant-btn-icon {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+/* RTL 列表项方向 */
+[dir="rtl"] .ant-list-item {
+  flex-direction: row-reverse;
+}
+
+/* RTL 表格方向 */
+[dir="rtl"] .ant-table {
+  direction: rtl;
+}
+
+[dir="rtl"] .ant-table-thead > tr > th {
+  text-align: right;
+}
+
+/* RTL 卡片内容方向 */
+[dir="rtl"] .ant-card-body {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL 标签页方向 */
+[dir="rtl"] .ant-tabs-tab {
+  direction: rtl;
+}
+
+/* RTL 菜单方向 */
+[dir="rtl"] .ant-menu {
+  direction: rtl;
+  text-align: right;
 }
 
 #root {

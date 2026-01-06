@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import 'antd/dist/reset.css'
 import './index.css'
+import './i18n' // 导入i18n配置
 import { preventDoubleTapZoom } from './utils/mobile'
 
 // 移动端优化：防止双击缩放

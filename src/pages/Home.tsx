@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Layout, message, Button, Space } from 'antd';
 import { HistoryOutlined, GlobalOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { RouteInput } from '../components/route/RouteInput';
 import { EnhancedWeatherDisplay } from '../components/weather/EnhancedWeatherDisplay';
 import { WeatherComparison } from '../components/weather/WeatherComparison';
 import { LoadingProgress } from '../components/common/LoadingProgress';
+import { LanguageSwitcher } from '../components/common/LanguageSwitcher';
 import { useWeatherStore } from '../store/weatherStore';
 import { isMobile } from '../utils/mobile';
 
 const { Content } = Layout;
 
 export const Home: React.FC = () => {
+  const { t } = useTranslation(['common', 'home']);
   const { weatherData, loading, error, progress, queryWeather, clearWeather } = useWeatherStore();
   const [mobile, setMobile] = useState(isMobile());
   const navigate = useNavigate();
@@ -53,23 +56,24 @@ export const Home: React.FC = () => {
                 marginBottom: mobile ? 8 : 12,
                 fontWeight: 'bold'
               }}>
-                长途出行天气查询
+                {t('home:title')}
               </h1>
               <p style={{ 
                 fontSize: mobile ? '14px' : '16px',
                 color: '#666'
               }}>
-                输入经过地点和到达时间，查询沿途天气信息
+                {t('home:description')}
               </p>
             </div>
             <Space>
+              <LanguageSwitcher />
               <Button
                 type="default"
                 icon={<GlobalOutlined />}
                 onClick={() => navigate('/routes')}
                 size={mobile ? 'middle' : 'large'}
               >
-                {!mobile && '路线管理'}
+                {!mobile && t('home:routeManagement')}
               </Button>
               <Button
                 type="default"
@@ -77,7 +81,7 @@ export const Home: React.FC = () => {
                 onClick={() => navigate('/history')}
                 size={mobile ? 'middle' : 'large'}
               >
-                {!mobile && '历史记录'}
+                {!mobile && t('home:history')}
               </Button>
             </Space>
           </div>
@@ -122,10 +126,10 @@ export const Home: React.FC = () => {
                 data={weatherData} 
                 loading={loading}
                 onCopy={() => {
-                  message.success('天气信息已复制到剪贴板');
+                  message.success(t('common:success'));
                 }}
                 onShare={() => {
-                  message.success('分享成功');
+                  message.success(t('common:success'));
                 }}
               />
             </div>

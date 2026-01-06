@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Input, Button, DatePicker, Space, message, AutoComplete, Tag, Popover, Tooltip } from 'antd';
 import { PlusOutlined, DeleteOutlined, StarOutlined, EnvironmentOutlined, ClockCircleOutlined, ImportOutlined, CopyOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import { Dayjs } from 'dayjs';
 import { isMobile } from '../../utils/mobile';
 import { getPopularLocations, getQueryHistory } from '../../utils/historyCache';
@@ -18,6 +19,8 @@ interface RouteInputProps {
 }
 
 export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
+  const { t } = useTranslation(['common', 'home']);
+  
   // 默认时间为今天中午12点
   const getDefaultDateTime = () => {
     return dayjs().hour(12).minute(0).second(0).millisecond(0);
@@ -123,9 +126,9 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
       const location = await getCurrentLocation();
       const address = await reverseGeocode(location.latitude, location.longitude);
       updateWaypoint(index, 'location', address);
-      message.success('定位成功');
+      message.success(t('common:success'));
     } catch (error: any) {
-      message.error(error.message || '定位失败');
+      message.error(error.message || t('common:error'));
     } finally {
       setLocating(null);
     }
@@ -159,11 +162,11 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
     for (let i = 0; i < waypoints.length; i++) {
       const wp = waypoints[i];
       if (!wp.location.trim()) {
-        message.error(`第${i + 1}个地点不能为空`);
+        message.error(t('home:locationRequired', { index: i + 1 }));
         return;
       }
       if (!wp.dateTime) {
-        message.error(`第${i + 1}个地点的时间不能为空`);
+        message.error(t('home:timeRequired', { index: i + 1 }));
         return;
       }
     }
@@ -217,10 +220,10 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
 
       if (imported.length > 0) {
         setWaypoints(imported);
-        message.success(`成功导入 ${imported.length} 个经过点`);
+        message.success(t('common:success'));
       }
     } catch (error: any) {
-      message.error(error.message || '导入失败');
+      message.error(error.message || t('common:error'));
     }
   };
 
@@ -232,7 +235,7 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
     }).join('\n');
     
     navigator.clipboard.writeText(text).then(() => {
-      message.success('已复制到剪贴板');
+      message.success(t('common:success'));
     });
   };
 
@@ -245,7 +248,7 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <Space.Compact style={{ width: '100%' }}>
                 <AutoComplete
-                  placeholder="输入地点"
+                  placeholder={t('home:locationPlaceholder')}
                   value={waypoint.location}
                   onChange={(value) => handleLocationSearch(value, index)}
                   onSearch={(value) => handleLocationSearch(value, index)}
@@ -253,7 +256,7 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
                   size="large"
                   style={{ flex: 1 }}
                 />
-                <Tooltip title="GPS定位">
+                <Tooltip title={t('home:gpsLocation')}>
                   <Button
                     icon={<EnvironmentOutlined />}
                     loading={locating === index}
@@ -265,7 +268,7 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
               <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                 <DatePicker
                   showTime
-                  placeholder="选择日期时间"
+                  placeholder={t('home:datetimePlaceholder')}
                   value={waypoint.dateTime}
                   onChange={(dateTime) => updateWaypoint(index, 'dateTime', dateTime)}
                   format="YYYY-MM-DD HH:mm"
@@ -277,22 +280,22 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
                 <Popover
                   content={
                     <Space direction="vertical" size="small">
-                      <Button size="small" onClick={() => handleQuickTime(index, 0)}>现在</Button>
-                      <Button size="small" onClick={() => handleQuickTime(index, 1)}>1小时后</Button>
-                      <Button size="small" onClick={() => handleQuickTime(index, 2)}>2小时后</Button>
-                      <Button size="small" onClick={() => handleQuickTime(index, 6)}>6小时后</Button>
-                      <Button size="small" onClick={() => handleQuickTime(index, 12)}>12小时后</Button>
-                      <Button size="small" onClick={() => handleQuickTime(index, 24)}>24小时后</Button>
+                      <Button size="small" onClick={() => handleQuickTime(index, 0)}>{t('home:now')}</Button>
+                      <Button size="small" onClick={() => handleQuickTime(index, 1)}>{t('home:hoursLater', { count: 1 })}</Button>
+                      <Button size="small" onClick={() => handleQuickTime(index, 2)}>{t('home:hoursLater', { count: 2 })}</Button>
+                      <Button size="small" onClick={() => handleQuickTime(index, 6)}>{t('home:hoursLater', { count: 6 })}</Button>
+                      <Button size="small" onClick={() => handleQuickTime(index, 12)}>{t('home:hoursLater', { count: 12 })}</Button>
+                      <Button size="small" onClick={() => handleQuickTime(index, 24)}>{t('home:hoursLater', { count: 24 })}</Button>
                     </Space>
                   }
-                  title="快速选择时间"
+                  title={t('home:quickTime')}
                   trigger="click"
                 >
                   <Button
                     icon={<ClockCircleOutlined />}
                     size="large"
                   >
-                    快速
+                    {t('home:quickTime')}
                   </Button>
                 </Popover>
               </div>
@@ -304,7 +307,7 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
                   block
                   size="large"
                 >
-                  删除此点
+                  {t('home:deleteWaypoint')}
                 </Button>
               )}
             </div>
@@ -313,14 +316,14 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
             <Space style={{ width: '100%' }} wrap>
               <Space.Compact>
                 <AutoComplete
-                  placeholder="输入地点"
+                  placeholder={t('home:locationPlaceholder')}
                   value={waypoint.location}
                   onChange={(value) => handleLocationSearch(value, index)}
                   onSearch={(value) => handleLocationSearch(value, index)}
                   options={locationOptions}
                   style={{ width: 200 }}
                 />
-                <Tooltip title="GPS定位">
+                <Tooltip title={t('home:gpsLocation')}>
                   <Button
                     icon={<EnvironmentOutlined />}
                     loading={locating === index}
@@ -330,7 +333,7 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
               </Space.Compact>
               <DatePicker
                 showTime
-                placeholder="选择日期时间"
+                placeholder={t('home:datetimePlaceholder')}
                 value={waypoint.dateTime}
                 onChange={(dateTime) => updateWaypoint(index, 'dateTime', dateTime)}
                 format="YYYY-MM-DD HH:mm"
@@ -340,18 +343,18 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
               <Popover
                 content={
                   <Space direction="vertical" size="small">
-                    <Button size="small" onClick={() => handleQuickTime(index, 0)}>现在</Button>
-                    <Button size="small" onClick={() => handleQuickTime(index, 1)}>1小时后</Button>
-                    <Button size="small" onClick={() => handleQuickTime(index, 2)}>2小时后</Button>
-                    <Button size="small" onClick={() => handleQuickTime(index, 6)}>6小时后</Button>
-                    <Button size="small" onClick={() => handleQuickTime(index, 12)}>12小时后</Button>
-                    <Button size="small" onClick={() => handleQuickTime(index, 24)}>24小时后</Button>
+                    <Button size="small" onClick={() => handleQuickTime(index, 0)}>{t('home:now')}</Button>
+                    <Button size="small" onClick={() => handleQuickTime(index, 1)}>{t('home:hoursLater', { count: 1 })}</Button>
+                    <Button size="small" onClick={() => handleQuickTime(index, 2)}>{t('home:hoursLater', { count: 2 })}</Button>
+                    <Button size="small" onClick={() => handleQuickTime(index, 6)}>{t('home:hoursLater', { count: 6 })}</Button>
+                    <Button size="small" onClick={() => handleQuickTime(index, 12)}>{t('home:hoursLater', { count: 12 })}</Button>
+                    <Button size="small" onClick={() => handleQuickTime(index, 24)}>{t('home:hoursLater', { count: 24 })}</Button>
                   </Space>
                 }
-                title="快速选择时间"
+                title={t('home:quickTime')}
                 trigger="click"
               >
-                <Button icon={<ClockCircleOutlined />}>快速</Button>
+                <Button icon={<ClockCircleOutlined />}>{t('home:quickTime')}</Button>
               </Popover>
               {waypoints.length > 1 && (
                 <Button
@@ -372,7 +375,7 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
           block={mobile}
           size={mobile ? 'large' : 'middle'}
         >
-          添加经过点
+          {t('home:addWaypoint')}
         </Button>
         <Button
           icon={<ImportOutlined />}
@@ -380,7 +383,7 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
           block={mobile}
           size={mobile ? 'large' : 'middle'}
         >
-          批量导入
+          {t('home:batchImport')}
         </Button>
         {waypoints.length > 0 && (
           <Button
@@ -389,7 +392,7 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
             block={mobile}
             size={mobile ? 'large' : 'middle'}
           >
-            复制列表
+            {t('home:copyList')}
           </Button>
         )}
         <Button
@@ -399,7 +402,7 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onQuery, loading }) => {
           block={mobile}
           size={mobile ? 'large' : 'middle'}
         >
-          查询天气
+          {t('home:queryWeather')}
         </Button>
       </Space>
     </div>

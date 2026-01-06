@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Tabs, Button, Space } from 'antd';
 import { HistoryOutlined, StarOutlined, BarChartOutlined, DatabaseOutlined, HomeOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { QueryHistoryList } from '../components/history/QueryHistoryList';
 import { PopularLocations } from '../components/history/PopularLocations';
 import { StatisticsPanel } from '../components/history/StatisticsPanel';
@@ -10,6 +11,7 @@ import { isMobile } from '../utils/mobile';
 const { Content } = Layout;
 
 export const History: React.FC = () => {
+  const { t } = useTranslation(['common', 'history', 'cache']);
   const mobile = isMobile();
   const navigate = useNavigate();
 
@@ -41,13 +43,13 @@ export const History: React.FC = () => {
                 marginBottom: mobile ? 8 : 12,
                 fontWeight: 'bold'
               }}>
-                历史记录
+                {t('history:title')}
               </h1>
               <p style={{ 
                 fontSize: mobile ? '14px' : '16px',
                 color: '#666'
               }}>
-                查看查询历史、常用地点和统计信息
+                {t('history:description')}
               </p>
             </div>
             <Space>
@@ -57,7 +59,7 @@ export const History: React.FC = () => {
                 onClick={() => navigate('/')}
                 size={mobile ? 'middle' : 'large'}
               >
-                {!mobile && '返回首页'}
+                {!mobile && t('common:home')}
               </Button>
               <Button
                 type="default"
@@ -65,7 +67,7 @@ export const History: React.FC = () => {
                 onClick={() => navigate('/cache')}
                 size={mobile ? 'middle' : 'large'}
               >
-                {!mobile && '缓存管理'}
+                {!mobile && t('cache:title')}
               </Button>
             </Space>
           </div>
@@ -79,7 +81,7 @@ export const History: React.FC = () => {
               label: (
                 <span>
                   <HistoryOutlined />
-                  {!mobile && ' 查询历史'}
+                  {!mobile && ` ${t('history:queryHistory')}`}
                 </span>
               ),
               children: <QueryHistoryList onSelectHistory={handleSelectHistory} />
@@ -89,7 +91,7 @@ export const History: React.FC = () => {
               label: (
                 <span>
                   <StarOutlined />
-                  {!mobile && ' 常用地点'}
+                  {!mobile && ` ${t('history:popularLocations')}`}
                 </span>
               ),
               children: <PopularLocations onSelectLocation={handleSelectLocation} />
@@ -99,7 +101,7 @@ export const History: React.FC = () => {
               label: (
                 <span>
                   <BarChartOutlined />
-                  {!mobile && ' 统计信息'}
+                  {!mobile && ` ${t('history:statistics')}`}
                 </span>
               ),
               children: <StatisticsPanel />

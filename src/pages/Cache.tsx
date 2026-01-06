@@ -2,12 +2,14 @@ import React from 'react';
 import { Layout, Button, Space } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { CacheManager } from '../components/cache/CacheManager';
 import { isMobile } from '../utils/mobile';
 
 const { Content } = Layout;
 
 export const Cache: React.FC = () => {
+  const { t } = useTranslation(['common', 'cache']);
   const mobile = isMobile();
   const navigate = useNavigate();
 
@@ -29,13 +31,13 @@ export const Cache: React.FC = () => {
                 marginBottom: mobile ? 8 : 12,
                 fontWeight: 'bold'
               }}>
-                缓存管理
+                {t('cache:title')}
               </h1>
               <p style={{ 
                 fontSize: mobile ? '14px' : '16px',
                 color: '#666'
               }}>
-                查看和管理系统缓存，包括天气数据、地理编码等缓存信息
+                {t('cache:description')}
               </p>
             </div>
             <Button
@@ -44,7 +46,7 @@ export const Cache: React.FC = () => {
               onClick={() => navigate('/')}
               size={mobile ? 'middle' : 'large'}
             >
-              {!mobile && '返回首页'}
+              {!mobile && t('common:home')}
             </Button>
           </div>
         </div>
