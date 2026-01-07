@@ -74,10 +74,14 @@ function AppRoutes() {
 }
 
 function App() {
+  // 获取 base 路径（用于 GitHub Pages 部署）
+  // 如果部署在子路径下（如 /TimeAreaWeb/），需要设置 basename
+  const basename = import.meta.env.BASE_URL || '/';
+  
   return (
     <HelmetProvider>
       <AntdLocaleProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={basename}>
           <AppRoutes />
         </BrowserRouter>
       </AntdLocaleProvider>

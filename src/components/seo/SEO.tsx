@@ -15,7 +15,9 @@ export const SEO: React.FC<SEOProps> = ({
   title = 'TimeArea - 长途出行天气查询系统',
   description = 'TimeArea是一个专业的天气查询工具，帮助您在长途出行时查询经过地点的天气信息。支持多地点批量查询、历史记录、路线管理等功能。',
   keywords = '天气查询,长途出行,天气预报,路线天气,天气查询工具,出行规划',
-  image = '/icon-512.png',
+  image = typeof window !== 'undefined' 
+    ? `${import.meta.env.BASE_URL || '/'}icon-512.png`
+    : '/icon-512.png',
   url = typeof window !== 'undefined' ? window.location.href : '',
   type = 'website',
   structuredData

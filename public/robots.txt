@@ -4,5 +4,5 @@ Allow: /
 # 禁止爬取API路径（如果有）
 Disallow: /api/
 
-# Sitemap位置（部署后需要更新为实际域名）
-Sitemap: https://your-domain.com/sitemap.xml
+# Sitemap位置
+Sitemap: https://FengChenTeAmo.github.io/TimeAreaWeb/sitemap.xml
