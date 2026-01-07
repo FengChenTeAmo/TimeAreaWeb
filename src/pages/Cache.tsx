@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Button, Space } from 'antd';
+import { Layout, Button } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

@@ -157,10 +157,6 @@ class StorageCache {
     };
   }
 
-  private getKey(key: string): string {
-    return `${this.prefix}${key}`;
-  }
-
   get<T>(key: string): T | null {
     // 如果没有前缀，直接使用key；如果有前缀，添加前缀
     const storageKey = this.prefix ? `${this.prefix}${key}` : key;
@@ -345,11 +341,9 @@ class StorageCache {
 class EnhancedCache {
   private l1Cache: MemoryCache;
   private l2Cache: StorageCache;
-  private cachePrefix: string;
 
   constructor(l1MaxSize: number = 100, cachePrefix: string = '') {
     this.l1Cache = new MemoryCache(l1MaxSize);
-    this.cachePrefix = cachePrefix;
     this.l2Cache = new StorageCache(cachePrefix);
     
     // 定期清理过期项

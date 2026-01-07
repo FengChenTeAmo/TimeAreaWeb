@@ -18,8 +18,7 @@ import {
   ReloadOutlined, 
   DeleteOutlined, 
   ClearOutlined,
-  SearchOutlined,
-  InfoCircleOutlined
+  SearchOutlined
 } from '@ant-design/icons';
 import { 
   getAllCacheKeys, 
@@ -30,7 +29,6 @@ import {
   getCacheStats
 } from '../../utils/enhancedCache';
 import { formatDateTime } from '../../utils/format';
-import dayjs from 'dayjs';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -78,9 +76,9 @@ export const CacheManager: React.FC = () => {
         return {
           key,
           level: info.level || 'L2',
-          expiresAt: info.expiresAt,
-          lastAccess: info.lastAccess,
-          accessCount: info.accessCount,
+          expiresAt: 'expiresAt' in info ? info.expiresAt : undefined,
+          lastAccess: 'lastAccess' in info ? info.lastAccess : undefined,
+          accessCount: 'accessCount' in info ? info.accessCount : undefined,
           type
         };
       });

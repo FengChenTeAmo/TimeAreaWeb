@@ -4,7 +4,6 @@ import { Route } from '../../types/route';
 import { getRouteStats } from '../../utils/routeUtils';
 import { formatDateTime } from '../../utils/format';
 import { isMobile } from '../../utils/mobile';
-import dayjs from 'dayjs';
 
 interface RouteDetailProps {
   route: Route;

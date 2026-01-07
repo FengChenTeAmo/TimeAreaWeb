@@ -2,8 +2,7 @@
 import { 
   getEnhancedCache, 
   setEnhancedCache, 
-  removeEnhancedCache as removeEnhancedCacheInternal,
-  clearEnhancedCache as clearEnhancedCacheInternal
+  removeEnhancedCache as removeEnhancedCacheInternal
 } from './enhancedCache';
 
 /**

@@ -27,7 +27,6 @@ const antdLocales: Record<string, any> = {
 // SEO包装组件（需要在Routes内部使用）
 const SEOWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
-  const { i18n } = useTranslation();
   const seoConfig = getPageSEOConfig(location.pathname);
   const structuredData = generateWebsiteStructuredData();
 

@@ -229,7 +229,6 @@ export const RouteList: React.FC<RouteListProps> = ({ onSelectRoute, onEditRoute
                     e?.stopPropagation();
                     handleDelete(route.id);
                   }}
-                  onClick={(e) => e.stopPropagation()}
                 >
                   <Button
                     type="text"

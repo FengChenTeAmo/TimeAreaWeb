@@ -57,7 +57,7 @@ export const WeatherComparison: React.FC<WeatherComparisonProps> = ({ data }) =>
       title: '地点',
       dataIndex: 'location',
       key: 'location',
-      fixed: mobile ? 'left' : false,
+      fixed: mobile ? ('left' as const) : false,
       width: mobile ? 100 : 150,
       render: (text: string, record: any) => (
         <div>
@@ -73,7 +73,7 @@ export const WeatherComparison: React.FC<WeatherComparisonProps> = ({ data }) =>
       dataIndex: 'temperature',
       key: 'temperature',
       width: 100,
-      render: (temp: number, record: any) => {
+      render: (temp: number) => {
         const isExtreme = temp === stats.temperature.max || temp === stats.temperature.min;
         return (
           <div>
@@ -132,7 +132,7 @@ export const WeatherComparison: React.FC<WeatherComparisonProps> = ({ data }) =>
       dataIndex: 'windSpeed',
       key: 'windSpeed',
       width: 100,
-      render: (windSpeed: number, record: any) => {
+      render: (windSpeed: number) => {
         const isExtreme = windSpeed === stats.windSpeed.max;
         return (
           <div>
@@ -156,7 +156,7 @@ export const WeatherComparison: React.FC<WeatherComparisonProps> = ({ data }) =>
       dataIndex: 'precipitation',
       key: 'precipitation',
       width: 100,
-      render: (precipitation: number, record: any) => {
+      render: (precipitation: number) => {
         const isExtreme = precipitation === stats.precipitation.max && precipitation > 0;
         return (
           <div>

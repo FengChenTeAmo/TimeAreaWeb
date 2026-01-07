@@ -119,7 +119,6 @@ export const PopularLocations: React.FC<PopularLocationsProps> = ({
                   e?.stopPropagation();
                   handleDelete(item.location);
                 }}
-                onClick={(e) => e.stopPropagation()}
               >
                 <Button
                   type="link"

@@ -159,7 +159,6 @@ export const QueryHistoryList: React.FC<QueryHistoryListProps> = ({ onSelectHist
                   e?.stopPropagation();
                   handleDelete(item.id);
                 }}
-                onClick={(e) => e.stopPropagation()}
               >
                 <Button
                   type="link"

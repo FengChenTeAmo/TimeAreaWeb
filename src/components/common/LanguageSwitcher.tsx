@@ -27,8 +27,6 @@ export const LanguageSwitcher: React.FC = () => {
     localStorage.setItem('i18nextLng', value);
   };
 
-  const currentLang = languages.find(lang => lang.code === i18n.language) || languages[0];
-
   return (
     <Tooltip title={mobile ? '' : '选择语言 / Select Language'}>
       <Select
