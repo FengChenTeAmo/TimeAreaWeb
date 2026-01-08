@@ -4,25 +4,25 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
-    <loc>https://FengChenTeAmo.github.io/TimeAreaWeb/</loc>
+    <loc>https://fengchenteamo.github.io/TimeAreaWeb/</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://FengChenTeAmo.github.io/TimeAreaWeb/history</loc>
+    <loc>https://fengchenteamo.github.io/TimeAreaWeb/history</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://FengChenTeAmo.github.io/TimeAreaWeb/routes</loc>
+    <loc>https://fengchenteamo.github.io/TimeAreaWeb/routes</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://FengChenTeAmo.github.io/TimeAreaWeb/cache</loc>
+    <loc>https://fengchenteamo.github.io/TimeAreaWeb/cache</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>

@@ -5,4 +5,4 @@ Allow: /
 Disallow: /api/
 
 # Sitemap位置
-Sitemap: https://FengChenTeAmo.github.io/TimeAreaWeb/sitemap.xml
+Sitemap: https://fengchenteamo.github.io/TimeAreaWeb/sitemap.xml
